@@ -9,10 +9,18 @@ from models.product import Product
 from models.user import User
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dukashop:duka_app@localhost/dukadb'
+DATABASE_URL = os.getenv('DATABASE_URL')
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
