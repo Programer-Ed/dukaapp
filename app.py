@@ -144,9 +144,15 @@ class CheckSession(Resource):
 api.add_resource(CheckSession, '/check_session')
 
 class ProductResource(Resource):
+    # def get(self):
+    #     products = Product.query.all()
+    #     return make_response(jsonify([product.to_dict() for product in products]), 200)
     def get(self):
         products = Product.query.all()
-        return make_response(jsonify([product.to_dict() for product in products]), 200)
+        products_dict = [product.to_dict() for product in products]
+        print(products_dict)  # Log the response
+        return make_response(jsonify(products_dict), 200)
+
 
     def post(self):
         data = request.get_json()
