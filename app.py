@@ -19,12 +19,15 @@ app = Flask(__name__)
 DATABASE_URL = os.getenv('DATABASE_URL')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+print("DATABASE_URL:", DATABASE_URL)  # Debug line
+print("SECRET_KEY:", SECRET_KEY)  # Debug line
+
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 app.secret_key = 'your_secret_key'  
 bcrypt = Bcrypt(app)
 
