@@ -46,7 +46,7 @@ db.init_app(app)
 
 api = Api(app)
 
-# Users Resource
+
 class UsersResource(Resource):
     def get(self):
         users = [user.to_dict(rules=('-orders',)) for user in User.query.all()]
@@ -146,14 +146,7 @@ class CheckSession(Resource):
 api.add_resource(CheckSession, '/check_session')
 
 class ProductResource(Resource):
-    # def get(self):
-    #     products = Product.query.all()
-    # #     return make_response(jsonify([product.to_dict() for product in products]), 200)
-    # def get(self):
-    #     products = Product.query.all()
-    #     products_dict = [product.to_dict() for product in products]
-    #     print(products_dict)  # Log the response
-    #     return make_response(jsonify(products_dict), 200)
+
     def get(self):
         try:
             products = Product.query.all()
