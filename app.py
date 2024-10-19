@@ -9,15 +9,18 @@ from models.product import Product
 from models.user import User
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 
-load_dotenv()
+# load_dotenv()
 
 app = Flask(__name__)
 
-DATABASE_URL = os.getenv('DATABASE_URL')
-SECRET_KEY = os.getenv('SECRET_KEY')
+# DATABASE_URL = os.getenv('DATABASE_URL')
+# SECRET_KEY = os.getenv('SECRET_KEY')
+
+DATABASE_URL= 'postgresql://dukadb_user:E0Ko0j1BgRoiMplNalYqNrqhTO6HUIs0@dpg-cs9t78a3esus739m05fg-a.frankfurt-postgres.render.com/dukadb'
+SECRET_KEY= 'be4dffdcbe4e49ffcd7909e8203b4e7e52ddf0d4df339f53da3f5d353477f520'
 
 print("DATABASE_URL:", DATABASE_URL)  # Debug line
 print("SECRET_KEY:", SECRET_KEY)  # Debug line
@@ -47,7 +50,7 @@ api = Api(app)
 # Users Resource
 class UsersResource(Resource):
     def get(self):
-        users = [user.to_dict() for user in User.query.all()]
+        users = [user.to_dict(rules=('-orders',)) for user in User.query.all()]
         return make_response(jsonify(users), 200)
 
     def post(self):
@@ -254,5 +257,5 @@ if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=os.getenv('PORT', 5000))
 
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
