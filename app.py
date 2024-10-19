@@ -36,7 +36,7 @@ allowed_origins = [
 
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
-app.secret_key = 'your_secret_key'  
+app.secret_key =  os.getenv('SECRET_KEY')
 bcrypt = Bcrypt(app)
 
 migrate = Migrate(app, db)
