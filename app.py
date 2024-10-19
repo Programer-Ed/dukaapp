@@ -27,8 +27,16 @@ app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
-app.secret_key = 'your_secret_key'  
+# CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+# CORS(app, resources={r"/*": {"origins": "https://duka-moja.netlify.app"}})
+allowed_origins = [
+    "https://duka-moja.netlify.app",
+    "https://admin-duka.netlify.app"
+]
+
+CORS(app, resources={r"/*": {"origins": allowed_origins}})
+
+app.secret_key =  os.getenv('SECRET_KEY')
 bcrypt = Bcrypt(app)
 
 migrate = Migrate(app, db)
@@ -136,9 +144,23 @@ class CheckSession(Resource):
 api.add_resource(CheckSession, '/check_session')
 
 class ProductResource(Resource):
+    # def get(self):
+    #     products = Product.query.all()
+    # #     return make_response(jsonify([product.to_dict() for product in products]), 200)
+    # def get(self):
+    #     products = Product.query.all()
+    #     products_dict = [product.to_dict() for product in products]
+    #     print(products_dict)  # Log the response
+    #     return make_response(jsonify(products_dict), 200)
     def get(self):
-        products = Product.query.all()
-        return make_response(jsonify([product.to_dict() for product in products]), 200)
+        try:
+            products = Product.query.all()
+            return make_response(jsonify([product.to_dict() for product in products]), 200)
+        except Exception as e:
+            print("Error retrieving products:", str(e))  # Log the error
+            return make_response({'error': 'Unable to retrieve products'}, 500)
+
+
 
     def post(self):
         data = request.get_json()
@@ -229,4 +251,8 @@ class OrderItemByID(Resource):
 api.add_resource(OrderItemByID, '/order_items/<int:id>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=os.getenv('PORT', 5000))
+
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
