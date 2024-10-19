@@ -27,7 +27,15 @@ app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+# CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+# CORS(app, resources={r"/*": {"origins": "https://duka-moja.netlify.app"}})
+allowed_origins = [
+    "https://duka-moja.netlify.app",
+    "https://admin-duka.netlify.app"
+]
+
+CORS(app, resources={r"/*": {"origins": allowed_origins}})
+
 app.secret_key = 'your_secret_key'  
 bcrypt = Bcrypt(app)
 
@@ -229,4 +237,8 @@ class OrderItemByID(Resource):
 api.add_resource(OrderItemByID, '/order_items/<int:id>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=os.getenv('PORT', 5000))
+
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
