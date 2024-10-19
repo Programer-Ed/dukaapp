@@ -16,11 +16,11 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# DATABASE_URL = os.getenv('DATABASE_URL')
+
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DATABASE_URL= 'postgresql://dukadb_user:E0Ko0j1BgRoiMplNalYqNrqhTO6HUIs0@dpg-cs9t78a3esus739m05fg-a.frankfurt-postgres.render.com/dukadb'
-# SECRET_KEY= 'be4dffdcbe4e49ffcd7909e8203b4e7e52ddf0d4df339f53da3f5d353477f520'
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SECRET_KEY'] = SECRET_KEY
