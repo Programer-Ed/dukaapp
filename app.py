@@ -146,12 +146,20 @@ api.add_resource(CheckSession, '/check_session')
 class ProductResource(Resource):
     # def get(self):
     #     products = Product.query.all()
-    #     return make_response(jsonify([product.to_dict() for product in products]), 200)
+    # #     return make_response(jsonify([product.to_dict() for product in products]), 200)
+    # def get(self):
+    #     products = Product.query.all()
+    #     products_dict = [product.to_dict() for product in products]
+    #     print(products_dict)  # Log the response
+    #     return make_response(jsonify(products_dict), 200)
     def get(self):
-        products = Product.query.all()
-        products_dict = [product.to_dict() for product in products]
-        print(products_dict)  # Log the response
-        return make_response(jsonify(products_dict), 200)
+        try:
+            products = Product.query.all()
+            return make_response(jsonify([product.to_dict() for product in products]), 200)
+        except Exception as e:
+            print("Error retrieving products:", str(e))  # Log the error
+            return make_response({'error': 'Unable to retrieve products'}, 500)
+
 
 
     def post(self):
