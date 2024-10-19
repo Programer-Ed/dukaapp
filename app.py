@@ -132,7 +132,7 @@ api.add_resource(Login, '/login')
 class Logout(Resource):
     def delete(self):
         session.pop('user_id', None)
-        return '', 204
+        return {}, 200
 
 api.add_resource(Logout, '/logout')
 
