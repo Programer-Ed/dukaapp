@@ -9,18 +9,18 @@ from models.product import Product
 from models.user import User
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 
-load_dotenv()
+# load_dotenv()
 
 app = Flask(__name__)
 
-DATABASE_URL = os.getenv('DATABASE_URL')
-SECRET_KEY = os.getenv('SECRET_KEY')
+# DATABASE_URL = os.getenv('DATABASE_URL')
+# SECRET_KEY = os.getenv('SECRET_KEY')
 
-# DATABASE_URL= 'postgresql://dukadb_user:E0Ko0j1BgRoiMplNalYqNrqhTO6HUIs0@dpg-cs9t78a3esus739m05fg-a.frankfurt-postgres.render.com/dukadb'
-# SECRET_KEY= 'be4dffdcbe4e49ffcd7909e8203b4e7e52ddf0d4df339f53da3f5d353477f520'
+DATABASE_URL= 'postgresql://dukadb_user:E0Ko0j1BgRoiMplNalYqNrqhTO6HUIs0@dpg-cs9t78a3esus739m05fg-a.frankfurt-postgres.render.com/dukadb'
+SECRET_KEY= 'be4dffdcbe4e49ffcd7909e8203b4e7e52ddf0d4df339f53da3f5d353477f520'
 
 # print("DATABASE_URL:", DATABASE_URL)  # Debug line
 # print("SECRET_KEY:", SECRET_KEY)  # Debug line?
@@ -146,7 +146,6 @@ class CheckSession(Resource):
 api.add_resource(CheckSession, '/check_session')
 
 class ProductResource(Resource):
-
     def get(self):
         try:
             products = Product.query.all()
