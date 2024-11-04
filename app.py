@@ -30,8 +30,8 @@ app.json.compact = False
 
 allowed_origins = [
     "https://duka-moja.netlify.app",
-    "https://admin-duka.netlify.app"
-    "https://duka-frontend.vercel.app"
+    "https://admin-duka.netlify.app",
+    "https://duka-frontend.vercel.app",
     "https://duka-admin.vercel.app"
 ]
 
